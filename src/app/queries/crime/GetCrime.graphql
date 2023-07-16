@@ -1,0 +1,6 @@
+query GetCrime($slug: String!) {
+  crime (where: {crimeSlug: $slug}) {
+    crimeTitle
+    crimeSlug
+  }
+}

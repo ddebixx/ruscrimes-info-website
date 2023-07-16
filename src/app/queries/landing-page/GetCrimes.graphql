@@ -1,0 +1,10 @@
+query GetCrimes {
+  crimes {
+    id
+    crimeTitle
+    crimeSlug
+    crimeCoverPhoto {
+      url
+    }
+  }
+}
