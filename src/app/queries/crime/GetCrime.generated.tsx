@@ -8,14 +8,26 @@ export type GetCrimeQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetCrimeQuery = { __typename?: 'Query', crime?: { __typename?: 'Crime', crimeTitle: string, crimeSlug?: string | null } | null };
+export type GetCrimeQuery = { __typename?: 'Query', crime?: { __typename?: 'Crime', id: string, crimeTitle: string, crimeSlug?: string | null, crimeInfo: { __typename?: 'RichText', html: string }, crimeContentPhotos: Array<{ __typename?: 'Asset', id: string, url: string }>, crimeContentSensitivePhotos: Array<{ __typename?: 'Asset', id: string, url: string }> } | null };
 
 
 export const GetCrimeDocument = gql`
     query GetCrime($slug: String!) {
   crime(where: {crimeSlug: $slug}) {
+    id
     crimeTitle
     crimeSlug
+    crimeInfo {
+      html
+    }
+    crimeContentPhotos {
+      id
+      url
+    }
+    crimeContentSensitivePhotos {
+      id
+      url
+    }
   }
 }
     `;

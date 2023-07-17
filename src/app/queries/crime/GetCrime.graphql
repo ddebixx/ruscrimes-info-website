@@ -1,6 +1,18 @@
 query GetCrime($slug: String!) {
-  crime (where: {crimeSlug: $slug}) {
+  crime(where: { crimeSlug: $slug }) {
+    id
     crimeTitle
     crimeSlug
+    crimeInfo {
+      html
+    }
+    crimeContentPhotos {
+      id
+      url
+    }
+    crimeContentSensitivePhotos {
+      id
+      url
+    }
   }
 }

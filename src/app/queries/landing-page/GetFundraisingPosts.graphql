@@ -1,0 +1,12 @@
+query GetFundrasingPosts {
+  fundraisingPosts {
+    id
+    fundraisingName
+    fundraisingCoverPhoto {
+      url
+    }
+    fundraisingLink {
+      html
+    }
+  }
+}

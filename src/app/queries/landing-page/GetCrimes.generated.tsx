@@ -6,7 +6,7 @@ const defaultOptions = {} as const;
 export type GetCrimesQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetCrimesQuery = { __typename?: 'Query', crimes: Array<{ __typename?: 'Crime', id: string, crimeTitle: string, crimeSlug?: string | null, crimeCoverPhoto: { __typename?: 'Asset', url: string } }> };
+export type GetCrimesQuery = { __typename?: 'Query', crimes: Array<{ __typename?: 'Crime', id: string, crimeTitle: string, crimeSlug?: string | null, crimeInfo: { __typename?: 'RichText', html: string }, crimeCoverPhoto: { __typename?: 'Asset', url: string } }> };
 
 
 export const GetCrimesDocument = gql`
@@ -15,6 +15,9 @@ export const GetCrimesDocument = gql`
     id
     crimeTitle
     crimeSlug
+    crimeInfo {
+      html
+    }
     crimeCoverPhoto {
       url
     }

@@ -3,6 +3,9 @@ query GetCrimes {
     id
     crimeTitle
     crimeSlug
+    crimeInfo {
+      html
+    }
     crimeCoverPhoto {
       url
     }

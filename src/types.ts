@@ -6031,12 +6031,27 @@ export type GetCrimeQueryVariables = Exact<{
 }>;
 
 
-export type GetCrimeQuery = { __typename?: 'Query', crime?: { __typename?: 'Crime', crimeTitle: string, crimeSlug?: string | null } | null };
+export type GetCrimeQuery = { __typename?: 'Query', crime?: { __typename?: 'Crime', id: string, crimeTitle: string, crimeSlug?: string | null, crimeInfo: { __typename?: 'RichText', html: string }, crimeContentPhotos: Array<{ __typename?: 'Asset', id: string, url: string }>, crimeContentSensitivePhotos: Array<{ __typename?: 'Asset', id: string, url: string }> } | null };
 
 export type GetCrimesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCrimesQuery = { __typename?: 'Query', crimes: Array<{ __typename?: 'Crime', id: string, crimeTitle: string, crimeSlug?: string | null, crimeCoverPhoto: { __typename?: 'Asset', url: string } }> };
+export type GetCrimesQuery = { __typename?: 'Query', crimes: Array<{ __typename?: 'Crime', id: string, crimeTitle: string, crimeSlug?: string | null, crimeInfo: { __typename?: 'RichText', html: string }, crimeCoverPhoto: { __typename?: 'Asset', url: string } }> };
+
+export type GetCrimesStatisticsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCrimesStatisticsQuery = { __typename?: 'Query', crimesStatistics: Array<{ __typename?: 'CrimesStatistic', id: string, crimeTypes: string, crimeNumber: string }> };
+
+export type GetFundrasingPostsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFundrasingPostsQuery = { __typename?: 'Query', fundraisingPosts: Array<{ __typename?: 'FundraisingPost', id: string, fundraisingName: string, fundraisingCoverPhoto: { __typename?: 'Asset', url: string }, fundraisingLink: { __typename?: 'RichText', html: string } }> };
+
+export type GetOfficialsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetOfficialsQuery = { __typename?: 'Query', officials: Array<{ __typename?: 'Official', id: string, institutionName: string, institutionPhoto: { __typename?: 'Asset', url: string }, institutionLink: { __typename?: 'RichText', html: string } }> };
 
 
       export type PossibleTypesResultData = {
@@ -6086,6 +6101,9 @@ export type GetCrimesQuery = { __typename?: 'Query', crimes: Array<{ __typename?
 export const namedOperations = {
   Query: {
     GetCrime: 'GetCrime',
-    GetCrimes: 'GetCrimes'
+    GetCrimes: 'GetCrimes',
+    GetCrimesStatistics: 'GetCrimesStatistics',
+    GetFundrasingPosts: 'GetFundrasingPosts',
+    GetOfficials: 'GetOfficials'
   }
 }

@@ -1,0 +1,12 @@
+query GetOfficials {
+  officials {
+    id
+    institutionPhoto {
+      url
+    }
+    institutionName
+    institutionLink {
+      html
+    }
+  }
+}
