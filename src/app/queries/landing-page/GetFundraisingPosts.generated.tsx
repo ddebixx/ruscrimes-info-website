@@ -3,22 +3,30 @@ import * as Types from '../../../types';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type GetFundrasingPostsQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetFundrasingPostsQueryVariables = Types.Exact<{
+  locale?: Types.InputMaybe<Types.Scalars['I18NLocaleCode']['input']>;
+}>;
 
 
-export type GetFundrasingPostsQuery = { __typename?: 'Query', fundraisingPosts: Array<{ __typename?: 'FundraisingPost', id: string, fundraisingName: string, fundraisingCoverPhoto: { __typename?: 'Asset', url: string }, fundraisingLink: { __typename?: 'RichText', html: string } }> };
+export type GetFundrasingPostsQuery = { __typename?: 'Query', fundraisingPosts?: { __typename?: 'FundraisingPostEntityResponseCollection', data: Array<{ __typename?: 'FundraisingPostEntity', id?: string | null, attributes?: { __typename?: 'FundraisingPost', fundraisingName: string, fundraisingLink: string, fundraisingCoverPhoto: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null }> } | null };
 
 
 export const GetFundrasingPostsDocument = gql`
-    query GetFundrasingPosts {
-  fundraisingPosts {
-    id
-    fundraisingName
-    fundraisingCoverPhoto {
-      url
-    }
-    fundraisingLink {
-      html
+    query GetFundrasingPosts($locale: I18NLocaleCode) {
+  fundraisingPosts(locale: $locale) {
+    data {
+      id
+      attributes {
+        fundraisingName
+        fundraisingCoverPhoto {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        fundraisingLink
+      }
     }
   }
 }
@@ -36,6 +44,7 @@ export const GetFundrasingPostsDocument = gql`
  * @example
  * const { data, loading, error } = useGetFundrasingPostsQuery({
  *   variables: {
+ *      locale: // value for 'locale'
  *   },
  * });
  */

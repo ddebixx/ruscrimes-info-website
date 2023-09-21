@@ -1,12 +1,18 @@
-query GetFundrasingPosts {
-  fundraisingPosts {
-    id
-    fundraisingName
-    fundraisingCoverPhoto {
-      url
-    }
-    fundraisingLink {
-      html
+query GetFundrasingPosts($locale: I18NLocaleCode) {
+  fundraisingPosts(locale: $locale) {
+    data {
+      id
+      attributes {
+        fundraisingName
+        fundraisingCoverPhoto {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        fundraisingLink
+      }
     }
   }
 }

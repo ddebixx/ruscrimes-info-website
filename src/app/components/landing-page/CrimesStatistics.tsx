@@ -6,11 +6,11 @@ export const CrimesStatistics = async () => {
     
     return (
         <>
-            <div>
-                {crimesStatistics.crimesStatistics.map((statistic) => (
+            <div className="grid grid-cols-2 gap-36 max-w-[1200px] m-auto">
+                {crimesStatistics.crimesStatistics?.data.map((statistic) => (
                     <div key={statistic.id}>
-                        <p>{statistic.crimeNumber}</p>
-                        <p>{statistic.crimeTypes}</p>
+                        <p className="text-9xl font-bold uppercase">{statistic.attributes?.crimeNumber}</p> <br />
+                        <p className="text-5xl uppercase text-[#BA181B]/70 font-bold">{statistic.attributes?.crimeTypes}</p>
                     </div>
                 ))}
             </div>

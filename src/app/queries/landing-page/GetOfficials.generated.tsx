@@ -3,22 +3,30 @@ import * as Types from '../../../types';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type GetOfficialsQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetOfficialsQueryVariables = Types.Exact<{
+  locale?: Types.InputMaybe<Types.Scalars['I18NLocaleCode']['input']>;
+}>;
 
 
-export type GetOfficialsQuery = { __typename?: 'Query', officials: Array<{ __typename?: 'Official', id: string, institutionName: string, institutionPhoto: { __typename?: 'Asset', url: string }, institutionLink: { __typename?: 'RichText', html: string } }> };
+export type GetOfficialsQuery = { __typename?: 'Query', officials?: { __typename?: 'OfficialEntityResponseCollection', data: Array<{ __typename?: 'OfficialEntity', id?: string | null, attributes?: { __typename?: 'Official', institutionName: string, institutionLink: string, institutionPhoto: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null }> } | null };
 
 
 export const GetOfficialsDocument = gql`
-    query GetOfficials {
-  officials {
-    id
-    institutionPhoto {
-      url
-    }
-    institutionName
-    institutionLink {
-      html
+    query GetOfficials($locale: I18NLocaleCode) {
+  officials(locale: $locale) {
+    data {
+      id
+      attributes {
+        institutionPhoto {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        institutionName
+        institutionLink
+      }
     }
   }
 }
@@ -36,6 +44,7 @@ export const GetOfficialsDocument = gql`
  * @example
  * const { data, loading, error } = useGetOfficialsQuery({
  *   variables: {
+ *      locale: // value for 'locale'
  *   },
  * });
  */

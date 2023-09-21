@@ -1,18 +1,31 @@
-query GetCrime($slug: String!) {
-  crime(where: { crimeSlug: $slug }) {
-    id
-    crimeTitle
-    crimeSlug
-    crimeInfo {
-      html
-    }
-    crimeContentPhotos {
-      id
-      url
-    }
-    crimeContentSensitivePhotos {
-      id
-      url
-    }
-  }
+query GetCrime($slug: String!, $locale: I18NLocaleCode) {
+	crimes(locale: $locale, filters: { slug: { eq: $slug } }) {
+		data {
+			id
+			attributes {
+				locale
+				crimeTitle
+				slug
+        		crimeInfo
+				victims_dead
+				victims_injured
+				crimeContentPhotos {
+					data {
+						id 
+						attributes {
+							url						
+						}
+					}
+				}
+				crimeContentSensitivePhotos {
+					data {
+						id
+						attributes {
+							url
+						}
+					}
+				}
+			}
+		}
+	}
 }

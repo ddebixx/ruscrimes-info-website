@@ -1,13 +1,23 @@
-query GetCrimes {
-  crimes {
-    id
-    crimeTitle
-    crimeSlug
-    crimeInfo {
-      html
-    }
-    crimeCoverPhoto {
-      url
+query GetCrimes($locale: I18NLocaleCode) {
+  crimes(locale: $locale) {
+    data {
+      id
+      attributes {
+        locale
+        crimeTitle
+        slug
+        crimeInfo
+        victims_dead
+				victims_injured
+        crimeCoverPhoto {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+      }
     }
   }
 }
+  

@@ -3,18 +3,24 @@ import * as Types from '../../../types';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type GetCrimesStatisticsQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetCrimesStatisticsQueryVariables = Types.Exact<{
+  locale?: Types.InputMaybe<Types.Scalars['I18NLocaleCode']['input']>;
+}>;
 
 
-export type GetCrimesStatisticsQuery = { __typename?: 'Query', crimesStatistics: Array<{ __typename?: 'CrimesStatistic', id: string, crimeTypes: string, crimeNumber: string }> };
+export type GetCrimesStatisticsQuery = { __typename?: 'Query', crimesStatistics?: { __typename?: 'CrimesStatisticEntityResponseCollection', data: Array<{ __typename?: 'CrimesStatisticEntity', id?: string | null, attributes?: { __typename?: 'CrimesStatistic', crimeTypes: string, crimeNumber: string } | null }> } | null };
 
 
 export const GetCrimesStatisticsDocument = gql`
-    query GetCrimesStatistics {
-  crimesStatistics {
-    id
-    crimeTypes
-    crimeNumber
+    query GetCrimesStatistics($locale: I18NLocaleCode) {
+  crimesStatistics(locale: $locale) {
+    data {
+      id
+      attributes {
+        crimeTypes
+        crimeNumber
+      }
+    }
   }
 }
     `;
@@ -31,6 +37,7 @@ export const GetCrimesStatisticsDocument = gql`
  * @example
  * const { data, loading, error } = useGetCrimesStatisticsQuery({
  *   variables: {
+ *      locale: // value for 'locale'
  *   },
  * });
  */

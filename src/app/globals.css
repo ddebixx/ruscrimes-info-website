@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+:root {
+    --background-color: #0A0A0B;
+    --text-color: #FFFFFF;
+    --accent-text-color: #BA181B;
+}
+
+body,
+html {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    scroll-behavior: smooth;
+}
+
+::selection {
+    background-color: var(--accent-text-color);
+    color: var(--text-color);
+}

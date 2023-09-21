@@ -5,28 +5,42 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetCrimeQueryVariables = Types.Exact<{
   slug: Types.Scalars['String']['input'];
+  locale?: Types.InputMaybe<Types.Scalars['I18NLocaleCode']['input']>;
 }>;
 
 
-export type GetCrimeQuery = { __typename?: 'Query', crime?: { __typename?: 'Crime', id: string, crimeTitle: string, crimeSlug?: string | null, crimeInfo: { __typename?: 'RichText', html: string }, crimeContentPhotos: Array<{ __typename?: 'Asset', id: string, url: string }>, crimeContentSensitivePhotos: Array<{ __typename?: 'Asset', id: string, url: string }> } | null };
+export type GetCrimeQuery = { __typename?: 'Query', crimes?: { __typename?: 'CrimeEntityResponseCollection', data: Array<{ __typename?: 'CrimeEntity', id?: string | null, attributes?: { __typename?: 'Crime', locale?: string | null, crimeTitle: string, slug?: string | null, crimeInfo: string, victims_dead?: string | null, victims_injured?: string | null, crimeContentPhotos?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null }> } | null, crimeContentSensitivePhotos?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null }> } | null } | null }> } | null };
 
 
 export const GetCrimeDocument = gql`
-    query GetCrime($slug: String!) {
-  crime(where: {crimeSlug: $slug}) {
-    id
-    crimeTitle
-    crimeSlug
-    crimeInfo {
-      html
-    }
-    crimeContentPhotos {
+    query GetCrime($slug: String!, $locale: I18NLocaleCode) {
+  crimes(locale: $locale, filters: {slug: {eq: $slug}}) {
+    data {
       id
-      url
-    }
-    crimeContentSensitivePhotos {
-      id
-      url
+      attributes {
+        locale
+        crimeTitle
+        slug
+        crimeInfo
+        victims_dead
+        victims_injured
+        crimeContentPhotos {
+          data {
+            id
+            attributes {
+              url
+            }
+          }
+        }
+        crimeContentSensitivePhotos {
+          data {
+            id
+            attributes {
+              url
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -45,6 +59,7 @@ export const GetCrimeDocument = gql`
  * const { data, loading, error } = useGetCrimeQuery({
  *   variables: {
  *      slug: // value for 'slug'
+ *      locale: // value for 'locale'
  *   },
  * });
  */

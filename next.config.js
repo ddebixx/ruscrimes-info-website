@@ -6,11 +6,16 @@ module.exports = {
     images: {
       remotePatterns: [
         {
-          protocol: 'https',
-          hostname: 'media.graphassets.com',
-          port: '',
+          protocol: 'http',
+          hostname: 'localhost',
+          port: '4000',
           pathname: '**',
         },
       ],
     },
+    i18n: {
+      locales: ['en', 'uk', 'pl', 'ru'],
+      defaultLocale: 'en',
+      localeDetection: false,
+    }
   }

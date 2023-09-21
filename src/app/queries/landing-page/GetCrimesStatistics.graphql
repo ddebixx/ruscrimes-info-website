@@ -1,7 +1,11 @@
-query GetCrimesStatistics {
-  crimesStatistics {
-    id
-    crimeTypes
-    crimeNumber
+query GetCrimesStatistics($locale: I18NLocaleCode) {
+  crimesStatistics(locale: $locale) {
+    data {
+      id 
+      attributes {
+        crimeTypes
+        crimeNumber
+      }
+    }
   }
 }

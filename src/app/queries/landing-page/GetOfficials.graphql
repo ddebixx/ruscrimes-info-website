@@ -1,12 +1,18 @@
-query GetOfficials {
-  officials {
-    id
-    institutionPhoto {
-      url
-    }
-    institutionName
-    institutionLink {
-      html
+query GetOfficials($locale: I18NLocaleCode) {
+  officials(locale: $locale) {
+    data {
+      id
+      attributes {
+        institutionPhoto {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        institutionName
+        institutionLink
+      }
     }
   }
 }

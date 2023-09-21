@@ -3,23 +3,34 @@ import * as Types from '../../../types';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type GetCrimesQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetCrimesQueryVariables = Types.Exact<{
+  locale?: Types.InputMaybe<Types.Scalars['I18NLocaleCode']['input']>;
+}>;
 
 
-export type GetCrimesQuery = { __typename?: 'Query', crimes: Array<{ __typename?: 'Crime', id: string, crimeTitle: string, crimeSlug?: string | null, crimeInfo: { __typename?: 'RichText', html: string }, crimeCoverPhoto: { __typename?: 'Asset', url: string } }> };
+export type GetCrimesQuery = { __typename?: 'Query', crimes?: { __typename?: 'CrimeEntityResponseCollection', data: Array<{ __typename?: 'CrimeEntity', id?: string | null, attributes?: { __typename?: 'Crime', locale?: string | null, crimeTitle: string, slug?: string | null, crimeInfo: string, victims_dead?: string | null, victims_injured?: string | null, crimeCoverPhoto: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null }> } | null };
 
 
 export const GetCrimesDocument = gql`
-    query GetCrimes {
-  crimes {
-    id
-    crimeTitle
-    crimeSlug
-    crimeInfo {
-      html
-    }
-    crimeCoverPhoto {
-      url
+    query GetCrimes($locale: I18NLocaleCode) {
+  crimes(locale: $locale) {
+    data {
+      id
+      attributes {
+        locale
+        crimeTitle
+        slug
+        crimeInfo
+        victims_dead
+        victims_injured
+        crimeCoverPhoto {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -37,6 +48,7 @@ export const GetCrimesDocument = gql`
  * @example
  * const { data, loading, error } = useGetCrimesQuery({
  *   variables: {
+ *      locale: // value for 'locale'
  *   },
  * });
  */
