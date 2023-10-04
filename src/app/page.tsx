@@ -7,19 +7,20 @@ import map from "./public/crimes-map.png"
 import { HeroSection } from "./components/landing-page/HeroSection"
 import { DonateHero } from "./components/landing-page/DonateHero"
 import { OfficialsHero } from "./components/landing-page/OfficialsHero"
+import React from "react"
 
 export default async function Home() {
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between gap-32">
+    <main className="flex min-h-screen flex-col items-center gap-32">
       <HeroSection />
       <CrimesStatistics />
-      <Image src={map} alt="crimes-map" width={2000} height={2000} />
+      <Image className="max-[600px]:h-[500px] object-cover max-[480px]:h-[400px]" src={map} alt="crimes-map" width={2000} height={2000} />
       <Crimes />
       <OfficialsHero />
       <Officials />
       <DonateHero />
-      <FundraisingPosts />
+      <FundraisingPosts title="Volunteer organizations" />
     </main>
   )
 }
